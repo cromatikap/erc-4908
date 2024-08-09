@@ -48,7 +48,7 @@ abstract contract ERC4908 is IERC4908, ERC721, ERC721Enumerable {
         string calldata resourceId,
         uint256 price,
         uint32 expirationDuration
-    ) external {
+    ) public {
         _setAccess(msg.sender, resourceId, price, expirationDuration);
     }
 
