@@ -141,7 +141,7 @@ abstract contract ERC4908 is IERC4908, ERC721, ERC721Enumerable {
                 : (false, "user doesn't own the NFT", -1);
     }
 
-    function delAccess(string calldata resourceId) external {
+    function delAccess(string calldata resourceId) public {
         bytes32 hash = _hash(msg.sender, resourceId);
         delete accessControl[hash];
     }
