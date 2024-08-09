@@ -1,8 +1,12 @@
 {
   "name": "erc-4908",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Gated resources NFT access, an extension of EIP-721",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cromatikap/erc-4908.git"
+  },
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test"
