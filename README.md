@@ -24,6 +24,8 @@ npm install
 
 ```sh
 npm run test # Pass env var REPORT_GAS=false to deactivate gas reporting
+npm run prettier
+npm run lint
 ```
 
 ### Deploying the contracts

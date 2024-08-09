@@ -3,7 +3,7 @@ require('@dotenvx/dotenvx').config();
 
 const ExampleERC4908 = buildModule("ExampleERC4908", (m) => {
 
-  const example = m.contract("_Example");
+  const example = m.contract("Example");
 
   return { example };
 });

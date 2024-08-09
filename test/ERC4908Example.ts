@@ -8,7 +8,7 @@ describe("ERC4908", function () {
   async function deployERC4908ExampleFixture() {
 
     const [wallet, ...wallets] = await hre.viem.getWalletClients();
-    const erc4908Example = await hre.viem.deployContract("_Example", []);
+    const erc4908Example = await hre.viem.deployContract("Example", []);
     
     return {
       wallet,
