@@ -110,8 +110,9 @@ abstract contract ERC4908 is IERC4908, ERC721, ERC721Enumerable {
         string calldata resourceId,
         address consumer
     )
-        external
+        public
         view
+        virtual
         returns (bool response, string memory message, int32 expirationTime)
     {
         bytes32 hash = _hash(author, resourceId);
