@@ -38,4 +38,13 @@ async function getBlockTimestamp() {
   return Number(block.timestamp);
 }
 
-export { impersonate, paramsDefault, increaseTime, getBlockTimestamp };
+async function getBalance(address: string) {
+  const balance = await hre.network.provider.request({
+    method: "eth_getBalance",
+    params: [address, "latest"],
+  });
+
+  return BigInt(balance);
+}
+
+export { impersonate, paramsDefault, increaseTime, getBlockTimestamp, getBalance };

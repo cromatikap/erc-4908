@@ -79,7 +79,7 @@ abstract contract ERC4908 is IERC4908, ERC721, ERC721Enumerable {
     }
 
     function mint(
-        address author,
+        address payable author,
         string calldata resourceId,
         address to
     ) public payable virtual {
@@ -101,6 +101,8 @@ abstract contract ERC4908 is IERC4908, ERC721, ERC721Enumerable {
             accessControl[settingsIndex].expirationDuration +
                 uint32(block.timestamp)
         );
+
+        author.transfer(msg.value);
 
         _safeMint(to, tokenId);
     }

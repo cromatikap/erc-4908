@@ -2,7 +2,7 @@ import hre from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox-viem/network-helpers";
 import { expect } from "chai";
 import { keccak256, encodePacked } from "viem";
-import { getBlockTimestamp, impersonate, increaseTime, paramsDefault } from "./utils";
+import { getBalance, getBlockTimestamp, impersonate, increaseTime, paramsDefault } from "./utils";
 
 describe("ERC4908", function () {
   async function deployERC4908ExampleFixture() {
@@ -218,6 +218,32 @@ describe("ERC4908", function () {
         'InsufficientFunds(2)'
       );
       await expect(mintSufficientFunds).to.be.fulfilled;
+    });
+
+    it("Should transfer the mint price to the author", async function () {
+
+      /* Arrange */
+
+      const { erc4908Example, wallets } = await loadFixture(deployERC4908ExampleFixture);
+      const { resourceId, price, expirationDuration } = paramsDefault;
+      const [Alice, Bob] = wallets;
+
+      let alice = await impersonate(erc4908Example, Alice);
+      let bob = await impersonate(erc4908Example, Bob);
+
+      /* Act */
+      
+      await alice.write.setAccess([resourceId, price, expirationDuration]);
+      const balanceAliceBefore = await getBalance(Alice.account.address);
+      const balanceBobBefore = await getBalance(Bob.account.address);
+      await bob.write.mint([Alice.account.address, resourceId, Bob.account.address], { value: price });
+      const balanceAliceAfter = await getBalance(Alice.account.address);
+      const balanceBobAfter = await getBalance(Bob.account.address);
+
+      /* Assert */
+      
+      expect(balanceAliceAfter).to.equal(balanceAliceBefore + price);
+      expect(Number(balanceBobAfter)).to.lessThanOrEqual(Number(balanceBobBefore - price));
     });
   });
 

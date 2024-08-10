@@ -71,7 +71,7 @@ interface IERC4908 {
     /// @param resourceId The content identification from the off-chain content service provider
     /// @param to The address of the content consumer
     function mint(
-        address author,
+        address payable author,
         string calldata resourceId,
         address to
     ) external payable;
